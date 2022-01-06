@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wen.module_weather">
+
+    <application>
+        <activity
+            android:name=".WeatherActivity"
+            android:exported="false" />
+        <activity android:name=".ui.CitySelectActivity"/>
+    </application>
+
+</manifest>

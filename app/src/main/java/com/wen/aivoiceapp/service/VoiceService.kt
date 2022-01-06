@@ -22,6 +22,7 @@ import com.wen.lib_base.helper.`fun`.AppHelper
 import com.wen.lib_base.helper.`fun`.CommonSettingHelper
 import com.wen.lib_base.helper.`fun`.ConsTellHelper
 import com.wen.lib_base.helper.`fun`.ContactHelper
+import com.wen.lib_base.map.MapManager
 import com.wen.lib_base.utils.L
 import com.wen.lib_network.HttpManager
 import com.wen.lib_network.bean.JokeOneData
@@ -430,6 +431,19 @@ class VoiceService : Service(), OnNluResultListener {
         addAiText(getString(R.string.text_voice_query_weather, city))
         ARouterHelper.startActivity(ARouterHelper.PATH_WEATHER, "city", city)
         hideWindow()
+    }
+    //周边搜索
+    override fun nearByMap(poi: String) {
+        addAiText("正在为您搜索周边$poi")
+        ARouterHelper.startActivity(ARouterHelper.PATH_MAP,"type","poi","keyword",poi)
+        hideWindow()
+
+    }
+    //规划-导航
+    override fun routeMap(address: String) {
+        addAiText("正在为您规划去${address}的路线")
+        ARouterHelper.startActivity(ARouterHelper.PATH_MAP,"type","route","keyword",address)
+
     }
 
 

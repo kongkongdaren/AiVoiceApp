@@ -211,6 +211,40 @@ object VoiceEngineAnalyze {
 
                     }
                 }
+                NluWords.NLU_MAP->{
+                    //地图操作
+                    if (intent == NluWords.INTENT_MAP_ROUTE) {
+                        val navigate=slots.optJSONArray("user_navigate")
+                        if(navigate.length()>0){
+                            (navigate[0] as JSONObject).apply {
+                                if(optString("word")=="导航"){
+                                    //如果是导航就获取目的地
+                                    val routeArrival=slots.optJSONArray("user_route_arrival")
+                                    if(routeArrival.length()>0){
+                                        (routeArrival[0] as JSONObject).apply {
+                                            val word=optString("word")
+                                            mOnNluResultListener.routeMap(word)
+                                        }
+                                    }
+                                }
+                            }
+                        }else{
+                            mOnNluResultListener.nluError()
+                        }
+                    }else if(intent == NluWords.INTENT_MAP_NEARBY){
+                        val userTarget=slots.optJSONArray("user_target")
+                        if(userTarget.length()>0){
+                            (userTarget[0] as JSONObject).apply {
+                               val word = optString("word")
+                                mOnNluResultListener.nearByMap(word)
+                            }
+                        }else{
+                            mOnNluResultListener.nluError()
+                        }
+                    }else{
+                        mOnNluResultListener.nluError()
+                    }
+                }
                 else -> {
                     mOnNluResultListener.nluError()
                 }
